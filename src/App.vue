@@ -21,11 +21,30 @@
           <span @click="toggle2">
             <input type="checkbox" value="" v-model.sync="delete2"></input>
             <label></label>
-            Task2</h4>
           </span>
+          Task2
+        </h4>
         <p>body 2</p>
       </collapsible-item>
-    </collapsible>
+    </collapsiSble>
+  </div>
+  <div class="container">
+    <a class="waves-effect waves-light btn">success</a>
+    <a class="waves-effect waves-light btn">delete</a>
+  </div>
+  <div class="fixed-action-btn">
+    <a class="btn-floating btn-large waves-effect waves-light red"><i class="material-icons">+</i>
+      <modal v-bind:is-opened.sync="opened">
+        <div class="modal-content">
+          <h4>todo title</h4>
+          <p>Detailed information</p>
+          <div class="modal-footer">
+            <div class="btn btn-flat" @click="close">cancel</div>
+            <div class="btn btn-flat" @click="close">ok</div>
+          </div>
+        </div>
+      </modal>
+    </a>
   </div>
 </template>
 
@@ -38,6 +57,7 @@ export default {
       // preserves its current state and we are modifying
       // its initial state.
       msg: 'TODO',
+      opened : false,
       delete1 : false,
       delete2 : false
     }
@@ -52,11 +72,16 @@ export default {
       this.delete2 = !this.delete2
       console.log(this.delete2);
       e.preventDefault()
+    },
+    close (){
+      console.log('click')
+      this.opened = false;
     }
   },
   components:{
     'collapsible' : require('vue-materialize/collapsible'),
-    'collapsible-item' : require('vue-materialize/collapsible-item')
+    'collapsible-item' : require('vue-materialize/collapsible-item'),
+    'modal' : require('vue-materialize/modal')
   }
 
 }
