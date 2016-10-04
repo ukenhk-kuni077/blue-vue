@@ -26,8 +26,16 @@
     <a class="btn-floating btn-large waves-effect waves-light red"><i class="material-icons">add</i>
       <modal v-bind:is-opened.sync="opened">
         <div class="modal-content">
-          <h4>todo title</h4>
-          <p>Detailed information</p>
+          <div class="row">
+            <div class="input-field">
+              <input type="text" v-model="taskTitle">
+              <label>task title</label>
+            </div>
+            <div class="input-field">
+              <input type="text" v-model="taskBody">
+              <label>Detailed information</label>
+            </div>
+          </div>
           <div class="modal-footer">
             <div class="btn btn-flat" @click="close">cancel</div>
             <div class="btn btn-flat" @click="addTask">ok</div>
@@ -49,13 +57,22 @@ export default {
       // its initial state.
       msg: 'TODO',
       opened : false,
-      taskDatas : [false,false,false]
+      taskDatas : [
+        {title:'task1', body:"body1"},
+        {title:'task2', body:"body2"},
+      ],
+      taskTitle : '',
+      taskBody : ''
     }
   },
   methods : {
     addTask (){
-      this.taskDatas.push(false);
-      console.log(this.taskDatas);
+      this.taskDatas.push({
+        title:this.taskTitle,
+        body:this.taskBody
+      });
+      this.taskTitle = '';
+      this.taskBody = '';
       this.opened = false;
     },
     close (){

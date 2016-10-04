@@ -1,14 +1,14 @@
 <template>
   <collapsible>
-    <collapsible-item v-for="delete in taskDatas" :delete="delete" track-by="$index">
+    <collapsible-item v-for="task in taskDatas" :task="task" track-by="$index">
       <h5 slot="header">
         <span @click="delete = !delete;e.preventDefault();">
           <input type="checkbox" value="" v-model.sync="delete"></input>
           <label></label>
         </span>
-        Task1
+        {{ task.title }}
       </h5>
-      <p>body 1</p>
+      <p>{{ task.body }}</p>
     </collapsible-item>
   </collapsiSble>
 </template>
