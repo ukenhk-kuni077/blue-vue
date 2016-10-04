@@ -5,14 +5,25 @@
     </div>
   </nav>
   <div class="container">
-      <task></task>
+    <task></task>
   </div>
   <div class="container">
-    <a class="waves-effect waves-light btn">success</a>
+    <a class="waves-effect waves-light btn">success
+      <modal>
+        <div class="modal-content">
+          <h4>success</h4>
+          <p>Detailed information</p>
+          <div class="modal-footer">
+            <div class="btn btn-flat">cancel</div>
+            <div class="btn btn-flat">ok</div>
+          </div>
+        </div>
+      </modal>
+    </a>
     <a class="waves-effect waves-light btn">delete</a>
   </div>
   <div class="fixed-action-btn">
-    <a class="btn-floating btn-large waves-effect waves-light red"><i class="material-icons">+</i>
+    <a class="btn-floating btn-large waves-effect waves-light red"><i class="material-icons">add</i>
       <modal v-bind:is-opened.sync="opened">
         <div class="modal-content">
           <h4>todo title</h4>
