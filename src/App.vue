@@ -5,21 +5,51 @@
     </div>
   </nav>
   <div class="container">
-      <task></task>
+    <task :task-datas="taskDatas"></task>
   </div>
   <div class="container">
-    <a class="waves-effect waves-light btn">success</a>
-    <a class="waves-effect waves-light btn">delete</a>
+    <a class="waves-effect waves-light btn">success
+      <modal :is-opened.sync="openedSuccess">
+        <div class="modal-content">
+          <h4>success</h4>
+          <p v-for="title in selectTiles" track-by="$index">{{ title }}</p>
+          <div class="modal-footer">
+            <div class="btn btn-flat" @click="closeSuccess">cancel</div>
+            <div class="btn btn-flat" @click="deleteTasks">ok</div>
+          </div>
+        </div>
+      </modal>
+    </a>
+    <a class="waves-effect waves-light btn">delete
+      <modal :is-opened.sync="openedDelete">
+        <div class="modal-content">
+          <h4>delete</h4>
+          <p v-for="title in selectTiles" track-by="$index">{{ title }}</p>
+          <div class="modal-footer">
+            <div class="btn btn-flat" @click="closeDelete">cancel</div>
+            <div class="btn btn-flat" @click="deleteTasks">ok</div>
+          </div>
+        </div>
+      </modal>
+    </a>
   </div>
   <div class="fixed-action-btn">
-    <a class="btn-floating btn-large waves-effect waves-light red"><i class="material-icons">+</i>
+    <a class="btn-floating btn-large waves-effect waves-light red"><i class="material-icons">add</i>
       <modal v-bind:is-opened.sync="opened">
         <div class="modal-content">
-          <h4>todo title</h4>
-          <p>Detailed information</p>
+          <div class="row">
+            <div class="input-field">
+              <input type="text" v-model="taskTitle">
+              <label>task title</label>
+            </div>
+            <div class="input-field">
+              <input type="text" v-model="taskBody">
+              <label>Detailed information</label>
+            </div>
+          </div>
           <div class="modal-footer">
             <div class="btn btn-flat" @click="close">cancel</div>
-            <div class="btn btn-flat" @click="close">ok</div>
+            <div class="btn btn-flat" @click="addTask">ok</div>
           </div>
         </div>
       </modal>
@@ -37,12 +67,45 @@ export default {
       // preserves its current state and we are modifying
       // its initial state.
       msg: 'TODO',
-      opened : false
+      opened : false,
+      openedSuccess : false,
+      openedDelete : false,
+      taskDatas : [
+        {title:'task1', body:"body1",select:false},
+        {title:'task2', body:"body2",select:false},
+      ],
+      taskTitle : '',
+      taskBody : ''
+    }
+  },
+  computed : {
+    selectTiles (){
+      return this.taskDatas.filter(x=>x.select).map(x=>x.title);
     }
   },
   methods : {
+    addTask (){
+      this.taskDatas.push({
+        title:this.taskTitle,
+        body:this.taskBody,
+        select:false
+      });
+      this.taskTitle = '';
+      this.taskBody = '';
+      this.opened = false;
+    },
+    deleteTasks (){
+      this.taskDatas = this.taskDatas.filter(x=>!x.select);
+      this.openedSuccess = false;
+      this.openedDelete = false;
+    },
+    closeSuccess (){
+      this.openedSuccess = false;
+    },
+    closeDelete (){
+      this.openedDelete = false;
+    },
     close (){
-      console.log('click')
       this.opened = false;
     }
   },
