@@ -1,13 +1,13 @@
 <template>
   <collapsible>
-    <collapsible-item v-for="delete in task_deletes" :delte="delete" :index="$index">
-      <h4 slot="header">
+    <collapsible-item v-for="delete in taskDatas" :delete="delete" track-by="$index">
+      <h5 slot="header">
         <span @click="delete = !delete;e.preventDefault();">
           <input type="checkbox" value="" v-model.sync="delete"></input>
           <label></label>
         </span>
         Task1
-      </h4>
+      </h5>
       <p>body 1</p>
     </collapsible-item>
   </collapsiSble>
@@ -15,10 +15,8 @@
 
 <script>
 export default {
-  data () {
-    return {
-      task_deletes : [false,false,false]
-    }
+  props : {
+    taskDatas : Array
   },
   components:{
     'collapsible' : require('vue-materialize/collapsible'),

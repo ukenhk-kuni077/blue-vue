@@ -5,7 +5,7 @@
     </div>
   </nav>
   <div class="container">
-    <task></task>
+    <task :task-datas="taskDatas"></task>
   </div>
   <div class="container">
     <a class="waves-effect waves-light btn">success
@@ -30,7 +30,7 @@
           <p>Detailed information</p>
           <div class="modal-footer">
             <div class="btn btn-flat" @click="close">cancel</div>
-            <div class="btn btn-flat" @click="close">ok</div>
+            <div class="btn btn-flat" @click="addTask">ok</div>
           </div>
         </div>
       </modal>
@@ -48,12 +48,17 @@ export default {
       // preserves its current state and we are modifying
       // its initial state.
       msg: 'TODO',
-      opened : false
+      opened : false,
+      taskDatas : [false,false,false]
     }
   },
   methods : {
+    addTask (){
+      this.taskDatas.push(false);
+      console.log(this.taskDatas);
+      this.opened = false;
+    },
     close (){
-      console.log('click')
       this.opened = false;
     }
   },
