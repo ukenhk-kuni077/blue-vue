@@ -2,8 +2,8 @@
   <collapsible>
     <collapsible-item v-for="task in taskDatas" :task="task" track-by="$index">
       <h5 slot="header">
-        <span @click="delete = !delete;e.preventDefault();">
-          <input type="checkbox" value="" v-model.sync="delete"></input>
+        <span @click.prevent="task.select = !task.select">
+          <input type="checkbox" value="" v-model.sync="task.select"></input>
           <label></label>
         </span>
         {{ task.title }}

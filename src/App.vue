@@ -58,8 +58,8 @@ export default {
       msg: 'TODO',
       opened : false,
       taskDatas : [
-        {title:'task1', body:"body1"},
-        {title:'task2', body:"body2"},
+        {title:'task1', body:"body1",select:false},
+        {title:'task2', body:"body2",select:false},
       ],
       taskTitle : '',
       taskBody : ''
@@ -69,7 +69,8 @@ export default {
     addTask (){
       this.taskDatas.push({
         title:this.taskTitle,
-        body:this.taskBody
+        body:this.taskBody,
+        select:false
       });
       this.taskTitle = '';
       this.taskBody = '';
