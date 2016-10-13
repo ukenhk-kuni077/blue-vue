@@ -87,7 +87,13 @@ export default {
       return this.taskDatas.filter(x=>x.select).map(x=>x.title);
     }
   },
+  watch : {
+    taskDatas (){
+      window.localStorage.setItem('_taskDatas',JSON.stringify(this.taskDatas));
+    }
+  },
   ready (){
+      this.taskDatas = JSON.parse(window.localStorage.getItem('_taskDatas')) || this.taskDatas;
       this.speech = new webkitSpeechRecognition();
       this.speech.lang = "ja";
       this.speech.addEventListener('result', (e)=>{
