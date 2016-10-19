@@ -60,6 +60,9 @@
 <script>
 import Task from './Task.vue';
 export default {
+  ready() {
+    $(()=>console.log('hellow'));
+  },
   data () {
     return {
       // note: changing this line won't causes changes
