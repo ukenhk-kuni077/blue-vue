@@ -50,6 +50,8 @@
           <div class="modal-footer">
             <div class="btn btn-flat" @click="close">cancel</div>
             <div class="btn btn-flat" @click="addTask">ok</div>
+            <div class="btn btn-flat" @click="recode" v-show="recordFlag">recode</div>
+            <div class="btn btn-flat" @click="endRecode" v-else>end recode</div>
           </div>
         </div>
       </modal>
@@ -70,6 +72,8 @@ export default {
       // preserves its current state and we are modifying
       // its initial state.
       msg: 'TODO',
+      speech : webkitSpeechRecognition,
+      recordFlag : true,
       opened : false,
       openedSuccess : false,
       openedDelete : false,
@@ -86,6 +90,13 @@ export default {
       return this.taskDatas.filter(x=>x.select).map(x=>x.title);
     }
   },
+  ready (){
+      this.speech = new webkitSpeechRecognition();
+      this.speech.lang = "ja";
+      this.speech.addEventListener('result', (e)=>{
+          this.taskTitle = e.results[0][0].transcript;
+      });
+  },
   methods : {
     addTask (){
       this.taskDatas.push({
@@ -96,6 +107,16 @@ export default {
       this.taskTitle = '';
       this.taskBody = '';
       this.opened = false;
+    },
+    recode (){
+      //音声認識APIの使用
+      //言語を日本語に設定
+      this.speech.start();
+      this.recordFlag = false;
+    },
+    endRecode (){
+      this.speech.stop();
+      this.recordFlag = true;
     },
     deleteTasks (){
       this.taskDatas = this.taskDatas.filter(x=>!x.select);
