@@ -74,8 +74,8 @@ export default {
       openedSuccess : false,
       openedDelete : false,
       taskDatas : [
-        {title:'task1', body:"body1",select:false, category:"shopping", location:"スーパー"},
-        {title:'task2', body:"body2",select:false, category:"shopping", location:"駅"},
+        {title:'task1', body:"body1", select:false, category:"shopping", location:"スーパー"},
+        {title:'task2', body:"body2", select:false, category:"shopping", location:"駅"},
       ],
       taskTitle : '',
       taskBody : ''

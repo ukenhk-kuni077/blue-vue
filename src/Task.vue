@@ -21,7 +21,6 @@
           <option>visit</option>
           <option>other</option>
         </select>
-
 	  </p>
     </collapsible-item>
   </collapsiSble>
