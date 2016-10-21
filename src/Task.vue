@@ -10,7 +10,7 @@
       </h5>
       <p>{{ task.body }}</p>
       <p>
-        date : <input type="date" v-model.sync="task.date" length="10"></input>
+        date : <input type="date" v-model.sync="task.date"></input>
         location : <select v-model.sync="task.location">
           <option>スーパー</option>
           <option>駅</option>
