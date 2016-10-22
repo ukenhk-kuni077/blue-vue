@@ -11,17 +11,19 @@
       <p>{{ task.body }}</p>
       <p>
         date : <input type="date" v-model.sync="task.date"></input>
-        location : <select v-model.sync="task.location">
-          <option>スーパー</option>
-          <option>駅</option>
-          <option>自宅</option>
+        <select v-model.sync="task.location">
+          <option value="super">スーパー</option>
+          <option value="station">駅</option>
+          <option value="home">自宅</option>
         </select>
-        category : <select v-model.sync="task.category">
-          <option>shopping</option>
-          <option>visit</option>
-          <option>other</option>
+		<label>location : </label>
+        <select v-model.sync="task.category">
+          <option value="shopping">shopping</option>
+          <option value="visit">visit</option>
+          <option value="other">other</option>
         </select>
-	  </p>
+		<label>category : </label>
+      </p>
     </collapsible-item>
   </collapsiSble>
 </template>
