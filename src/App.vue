@@ -24,6 +24,7 @@
       <modal :is-opened.sync="openedDelete">
         <div class="modal-content">
           <h4>delete</h4>
+          <h4>delete</h4>
           <p v-for="title in selectTiles" track-by="$index">{{ title }}</p>
           <div class="modal-footer">
             <div class="btn btn-flat" @click="closeDelete">cancel</div>
@@ -50,8 +51,8 @@
           <div class="modal-footer">
             <div class="btn btn-flat" @click="close">cancel</div>
             <div class="btn btn-flat" @click="addTask">ok</div>
-            <div class="btn btn-flat" @click="recode" v-show="recordFlag">recode</div>
-            <div class="btn btn-flat" @click="endRecode" v-else>end recode</div>
+            <div class="btn btn-flat" @click="record" v-show="recordFlag">record</div>
+            <div class="btn btn-flat" @click="endRecord" v-else>end record</div>
           </div>
         </div>
       </modal>
@@ -105,13 +106,13 @@ export default {
       this.taskBody = '';
       this.opened = false;
     },
-    recode (){
+    record (){
       //音声認識APIの使用
       //言語を日本語に設定
       this.speech.start();
       this.recordFlag = false;
     },
-    endRecode (){
+    endRecord (){
       this.speech.stop();
       this.recordFlag = true;
     },
