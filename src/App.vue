@@ -61,10 +61,22 @@
 
 <script>
 import Task from './Task.vue';
+
+const communicateBM = ( path , arg , successHandler ) => {
+  $.ajax({
+        type : 'post',
+		url : 'https://softuken2016.mybluemix.net/todo/' + path,
+        data : JSON.stringify(arg),
+        contentType: 'application/JSON',
+        dataType : 'json',
+        scriptCharset: 'utf-8'
+  }).done(successHandler
+  ).fail(function(data){
+    console.log('error:'+JSON.stringify(data));
+  });
+}
+
 export default {
-  ready() {
-    $(()=>console.log('hellow'));
-  },
   data () {
     return {
       // note: changing this line won't causes changes
@@ -72,7 +84,7 @@ export default {
       // preserves its current state and we are modifying
       // its initial state.
       msg: 'TODO',
-      speech : webkitSpeechRecognition,
+//      speech : webkitSpeechRecognition,
       recordFlag : true,
       opened : false,
       openedSuccess : false,
@@ -91,11 +103,17 @@ export default {
     }
   },
   ready (){
-      this.speech = new webkitSpeechRecognition();
+/*      this.speech = new webkitSpeechRecognition();
       this.speech.lang = "ja";
       this.speech.addEventListener('result', (e)=>{
           this.taskTitle = e.results[0][0].transcript;
       });
+*/
+    // get todo list from server
+    var noArg = {};
+    communicateBM('list',noArg,(data)=>{
+        this.taskDatas = data;
+    });
   },
   methods : {
     addTask (){
