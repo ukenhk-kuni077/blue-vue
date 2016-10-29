@@ -47,7 +47,13 @@ module.exports = {
   },
   devServer: {
     historyApiFallback: true,
-    noInfo: true
+    noInfo: true,
+    proxy: {
+      '/todo/list': {
+        target: 'http://localhost:3001',
+        changeOrigin : true
+      }
+    }
   },
   devtool: '#eval-source-map'
 }
