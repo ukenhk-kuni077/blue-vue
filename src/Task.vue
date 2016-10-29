@@ -16,13 +16,13 @@
           <option value="station">駅</option>
           <option value="home">自宅</option>
         </select>
-		<label>location : </label>
+        <label>location : </label>
         <select v-model.sync="task.category">
           <option value="shopping">shopping</option>
           <option value="visit">visit</option>
           <option value="other">other</option>
         </select>
-		<label>category : </label>
+        <label>category : </label>
       </p>
     </collapsible-item>
   </collapsiSble>
