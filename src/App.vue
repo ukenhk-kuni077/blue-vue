@@ -66,7 +66,7 @@ import Task from './Task.vue';
 const communicateBM = ( path , arg , successHandler ) => {
   $.ajax({
         type : 'post',
-		url : 'https://softuken2016.mybluemix.net/todo/' + path,
+        url :  '/todo/' + path,
         data : JSON.stringify(arg),
         contentType: 'application/JSON',
         dataType : 'json',
@@ -104,16 +104,16 @@ export default {
     }
   },
   ready (){
-/*      this.speech = new webkitSpeechRecognition();
+      this.speech = new webkitSpeechRecognition();
       this.speech.lang = "ja";
       this.speech.addEventListener('result', (e)=>{
           this.taskTitle = e.results[0][0].transcript;
       });
-*/
     // get todo list from server
     var noArg = {};
     communicateBM('list',noArg,(data)=>{
-        this.taskDatas = data;
+      let serverData = data.map(x=>Object.assign(x,{todo_text : x.todoText}));
+      this.taskDatas = (serverData);
     });
   },
   methods : {
