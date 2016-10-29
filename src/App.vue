@@ -24,6 +24,7 @@
       <modal :is-opened.sync="openedDelete">
         <div class="modal-content">
           <h4>delete</h4>
+          <h4>delete</h4>
           <p v-for="title in selectTiles" track-by="$index">{{ title }}</p>
           <div class="modal-footer">
             <div class="btn btn-flat" @click="closeDelete">cancel</div>
@@ -61,6 +62,21 @@
 
 <script>
 import Task from './Task.vue';
+
+const communicateBM = ( path , arg , successHandler ) => {
+  $.ajax({
+        type : 'post',
+        url :  '/todo/' + path,
+        data : JSON.stringify(arg),
+        contentType: 'application/JSON',
+        dataType : 'json',
+        scriptCharset: 'utf-8'
+  }).done(successHandler
+  ).fail(function(data){
+    console.log('error:'+JSON.stringify(data));
+  });
+}
+
 export default {
   data () {
     return {
@@ -69,14 +85,14 @@ export default {
       // preserves its current state and we are modifying
       // its initial state.
       msg: 'TODO',
-      speech : webkitSpeechRecognition,
+//      speech : webkitSpeechRecognition,
       recordFlag : true,
       opened : false,
       openedSuccess : false,
       openedDelete : false,
       taskDatas : [
-        {title:'task1', body:"body1",select:false},
-        {title:'task2', body:"body2",select:false},
+        {title:'task1', body:"body1", select:false, category:"shopping", location:"スーパー"},
+        {title:'task2', body:"body2", select:false, category:"shopping", location:"駅"}
       ],
       taskTitle : '',
       taskBody : ''
@@ -93,6 +109,12 @@ export default {
       this.speech.addEventListener('result', (e)=>{
           this.taskTitle = e.results[0][0].transcript;
       });
+    // get todo list from server
+    var noArg = {};
+    communicateBM('list',noArg,(data)=>{
+      let serverData = data.map(x=>Object.assign(x,{todo_text : x.todoText}));
+      this.taskDatas = (serverData);
+    });
   },
   methods : {
     addTask (){
