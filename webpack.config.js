@@ -56,7 +56,7 @@ module.exports = {
     noInfo: true,
     proxy: {
       '/todo/list': {
-        target: 'http://localhost:3001',
+        target: 'http://localhost:3030',
         changeOrigin : true
       }
     }
