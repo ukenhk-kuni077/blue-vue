@@ -12,15 +12,11 @@
       <p>
         date : <input type="date" v-model.sync="task.date"></input>
         <select v-model.sync="task.location">
-          <option value="super">スーパー</option>
-          <option value="station">駅</option>
-          <option value="home">自宅</option>
+          <option v-for="location in locations" :value="location.value" v-text="location.value"></option>
         </select>
         <label>location : </label>
         <select v-model.sync="task.category">
-          <option value="shopping">shopping</option>
-          <option value="visit">visit</option>
-          <option value="other">other</option>
+          <option v-for="category in categories" :value="category.value" v-text="category.value"></option>
         </select>
         <label>category : </label>
       </p>
@@ -30,6 +26,20 @@
 
 <script>
 export default {
+  data () {
+    return {
+      locations : [
+        {value:'super',  text:'スーパー'},
+        {value:'station',text:'駅'},
+        {value:'home',   text:'自宅'}
+       ],
+      categories : [
+        {value:'shopping', text:'shopping'},
+        {value:'visit',    text:'visit'},
+        {value:'other',    text:'other'}
+       ]
+      }
+  },
   props : {
     taskDatas : Array
   },
