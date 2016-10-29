@@ -63,20 +63,6 @@
 <script>
 import Task from './Task.vue';
 
-const communicateBM = ( path , arg , successHandler ) => {
-  $.ajax({
-        type : 'post',
-        url :  '/todo/' + path,
-        data : JSON.stringify(arg),
-        contentType: 'application/JSON',
-        dataType : 'json',
-        scriptCharset: 'utf-8'
-  }).done(successHandler
-  ).fail(function(data){
-    console.log('error:'+JSON.stringify(data));
-  });
-}
-
 export default {
   data () {
     return {
@@ -103,18 +89,23 @@ export default {
       return this.taskDatas.filter(x=>x.select).map(x=>x.title);
     }
   },
+  created () {
+    // get todo list from server
+    this.$http.post('/todo/list','{}')
+    .then(response=>response.json())
+    .then(json=>{
+      console.log(JSON.stringify(json,null,'\t'));
+      this.taskDatas = json.map(x=>Object.assign(x,{
+        title : x.todoText
+      }));
+    })
+  },
   ready (){
       this.speech = new webkitSpeechRecognition();
       this.speech.lang = "ja";
       this.speech.addEventListener('result', (e)=>{
           this.taskTitle = e.results[0][0].transcript;
       });
-    // get todo list from server
-    var noArg = {};
-    communicateBM('list',noArg,(data)=>{
-      let serverData = data.map(x=>Object.assign(x,{todo_text : x.todoText}));
-      this.taskDatas = (serverData);
-    });
   },
   methods : {
     addTask (){
