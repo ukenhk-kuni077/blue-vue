@@ -85,7 +85,7 @@ export default {
       // preserves its current state and we are modifying
       // its initial state.
       msg: 'TODO',
-//      speech : webkitSpeechRecognition,
+      speech : webkitSpeechRecognition,
       recordFlag : true,
       opened : false,
       openedSuccess : false,
