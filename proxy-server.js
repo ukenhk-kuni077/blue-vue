@@ -1,7 +1,9 @@
 var express = require('express');
 var request = require('superagent');
 var app = express();
+import config from './config/config';
 
+console.log(config);
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
@@ -15,7 +17,7 @@ app.post('/*', function(req, res) {
   console.log(req.headers);
   console.log(req.body);
   console.log('==============');
-  request.post('https://softuken2016.mybluemix.net' + req.url)
+  request.post(config.bluemix.page + req.url)
     .set("Content-Type","application/JSON")
     .send('{}')
     .end((err,_res)=>{
