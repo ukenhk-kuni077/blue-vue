@@ -1,7 +1,8 @@
-var express = require('express');
-var request = require('superagent');
-var app = express();
+import express from 'express';
+import request from 'superagent';
 import config from './config/config';
+
+var app = express();
 
 console.log(config);
 app.use(function(req, res, next) {
