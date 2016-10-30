@@ -1,5 +1,7 @@
-var express = require('express');
-var request = require('superagent');
+import express from 'express';
+import request from 'superagent';
+import config from './config/config';
+
 var app = express();
 
 app.use(function(req, res, next) {
@@ -15,7 +17,7 @@ app.post('/*', function(req, res) {
   console.log(req.headers);
   console.log(req.body);
   console.log('==============');
-  request.post('https://softuken2016.mybluemix.net' + req.url)
+  request.post(config.bluemix.page + req.url)
     .set("Content-Type","application/JSON")
     .send('{}')
     .end((err,_res)=>{

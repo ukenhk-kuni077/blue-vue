@@ -11,10 +11,12 @@
 
 <script>
 import {load, Map, Marker} from 'vue-google-maps'
-
-load('YOUR_API_KEY','3.24')
+import config from '../config/config'
 
 export default {
+  created (){
+    load(config.gmap);
+  },
   ready (){
     navigator.geolocation.getCurrentPosition(pos=>{
       this.center = {lat: pos.coords.latitude, lng: pos.coords.longitude};
