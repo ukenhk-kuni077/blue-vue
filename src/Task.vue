@@ -11,15 +11,15 @@
       <p>{{ task.body }}</p>
       <p>
         <label>date : </label>
-        <input-field type="date" v-model.sync="task.regDate"></input-field>
+        <input-field type="date" :value.sync="task.regDate"></input-field>
 
         <label>location : </label>
-        <select v-model.sync="task.location" class="browser-default">
+        <select :value.sync="task.location" class="browser-default">
           <option v-for="location in locations" :value="location.value" v-text="location.value"></option>
         </select>
 
         <label>category : </label>
-        <select v-model.sync="task.category" class="browser-default">
+        <select :value.sync="task.category" class="browser-default">
           <option v-for="category in categories" :value="category.value" v-text="category.value"></option>
         </select>
 
