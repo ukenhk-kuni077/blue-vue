@@ -1,11 +1,11 @@
 <template>
   <map
     :center.sync="center"
-    :zoom.sync="zoom">
+    :zoom.sync="zoom"
+    @g-click="mapClick">
     <marker 
       v-for="m in markers"
-      :position.sync="m.position"
-      @g-clickiiii="center=m.position"></marker>
+      :position.sync="m.position"></marker>
   </map>
 </template>
 
@@ -38,6 +38,16 @@ export default {
       }, {
         position: {lat: 11.0, lng: 11.0}
       }]
+    }
+  },
+  methods : {
+    mapClick (mouseArgs){
+      this.markers.push({
+        position :{
+          lat: mouseArgs.latLng.lat(),
+          lng: mouseArgs.latLng.lng()
+        }
+      });
     }
   },
   components : { Map, Marker }
