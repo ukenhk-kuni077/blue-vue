@@ -102,6 +102,7 @@ export default {
     })
   },
   ready (){
+      this.taskDatas = JSON.parse(window.localStorage.getItem('_taskDatas')) || this.taskDatas;
       this.speech = new webkitSpeechRecognition();
       this.speech.lang = "ja";
       this.speech.addEventListener('result', (e)=>{
