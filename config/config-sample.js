@@ -4,6 +4,6 @@ export default {
     v : 'ANY_VERSION'
   },
   bluemix : {
-    page : 'https://exsample.com'
+    page : 'https://example.com'
   }
 }
