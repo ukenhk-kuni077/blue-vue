@@ -11,13 +11,17 @@
       @g-click="mapClick">
       <marker 
         v-for="m in markers"
-        :position.sync="m.position"></marker>
+        :position.sync="m.position">
+        <info-window
+          :opened.sync="m.open"
+          :content="m.content"></info-window>
+      </marker>
     </map>
   </div>
 </template>
 
 <script>
-import {load, Map, Marker} from 'vue-google-maps'
+import {load, Map, Marker, InfoWindow} from 'vue-google-maps'
 import config from '../config/config'
 
 export default {
@@ -30,8 +34,10 @@ export default {
       this.markers.push({
         position :{
           lat: pos.coords.latitude,
-          lng: pos.coords.longitude
-        }
+          lng: pos.coords.longitude,
+        },
+        content: 'now this position',
+        open : true
       });
     });
   },
@@ -54,12 +60,15 @@ export default {
       this.markers.$set( 1,{
         position :{
           lat: mouseArgs.latLng.lat(),
-          lng: mouseArgs.latLng.lng()
-        }
+          lng: mouseArgs.latLng.lng(),
+        },
+        content: 'select this?',
+        open : true
+
       });
     }
   },
-  components : { Map, Marker }
+  components : { Map, Marker, InfoWindow}
 }
 </script>
 
