@@ -1,12 +1,19 @@
 <template>
-  <map
-    :center.sync="center"
-    :zoom.sync="zoom"
-    @g-click="mapClick">
-    <marker 
-      v-for="m in markers"
-      :position.sync="m.position"></marker>
-  </map>
+  <nav>
+    <div>
+      <h2 class="container">spot select</h1>
+    </div>
+  </nav>
+  <div class="container">
+    <map
+      :center.sync="center"
+      :zoom.sync="zoom"
+      @g-click="mapClick">
+      <marker 
+        v-for="m in markers"
+        :position.sync="m.position"></marker>
+    </map>
+  </div>
 </template>
 
 <script>
