@@ -51,7 +51,7 @@ export default {
   },
   methods : {
     mapClick (mouseArgs){
-      this.markers.push({
+      this.markers.$set( 1,{
         position :{
           lat: mouseArgs.latLng.lat(),
           lng: mouseArgs.latLng.lng()
