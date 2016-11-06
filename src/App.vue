@@ -24,7 +24,6 @@
       <modal :is-opened.sync="openedDelete">
         <div class="modal-content">
           <h4>delete</h4>
-          <h4>delete</h4>
           <p v-for="title in selectTiles" track-by="$index">{{ title }}</p>
           <div class="modal-footer">
             <div class="btn btn-flat" @click="closeDelete">cancel</div>
