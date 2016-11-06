@@ -9,22 +9,27 @@
         {{ task.title }}
       </h5>
       <div class="container">
+        <div class="row"></div>
         <div class="row">
-          <br>
           <div class="col s12">
           {{ task.body }}
           </div>
+        </div>
+        <div class="row">
           <a class="col offset-s9 s3 waves-effect waves-light btn" @click="geoRegistration(task)">geopos</a>
-          <div class="col s12">
-            <label>date : </label>
-            <input-field type="date" :value.sync="task.regDate"></input-field>
-          </div>
+        </div>
+        <div class="row">
+          <input-field class="col s12" type="date" :value.sync="task.regDate" label="date : "></input-field>
+        </div>
+        <div class="row">
           <div class="col s12">
             <label>location : </label>
             <select :value.sync="task.location" class="browser-default">
               <option v-for="location in locations" :value="location.value" v-text="location.value"></option>
             </select>
           </div>
+        </div>
+        <div class="row">
           <div class="col s12">
             <label>category : </label>
             <select :value.sync="task.category" class="browser-default">
