@@ -39,14 +39,14 @@
       <modal v-bind:is-opened.sync="opened">
         <div class="modal-content">
           <div class="row">
-            <div class="input-field">
-              <input type="text" v-model="taskTitle">
-              <label>task title</label>
-            </div>
-            <div class="input-field">
-              <input type="text" v-model="taskBody">
-              <label>Detailed information</label>
-            </div>
+            <input-field
+              class="s12"
+              label="task title"
+              :value.sync="taskTitle"></input-field>
+            <input-field
+              class="s12"
+              label="Detailed information"
+              :value.sync="taskBody"></input-field>
           </div>
           <div class="modal-footer">
             <div class="btn btn-flat" @click="close">cancel</div>
@@ -147,7 +147,8 @@ export default {
   },
   components:{
     Task,
-    'modal' : require('vue-materialize/modal')
+    'modal' : require('vue-materialize/modal'),
+    'input-field' : require('vue-materialize/input-field')
   }
 
 }
