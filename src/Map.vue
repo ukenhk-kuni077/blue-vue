@@ -17,6 +17,10 @@
           :content="m.content"></info-window>
       </marker>
     </map>
+    <div class="row"></div>
+    <div class="row" v-show='selectedSpot'>
+      <a class="col offset-s4 s4 waves-effect waves-light btn" @click="registration">Registration</a>
+    </div>
   </div>
 </template>
 
@@ -46,11 +50,12 @@ export default {
     return {
       center: {lat: 10.0, lng: 10.0},
       zoom : 15,
-      markers: [{
-        position: {lat: 10.0, lng: 10.0}
-      }, {
-        position: {lat: 11.0, lng: 11.0}
-      }]
+      markers: []
+    }
+  },
+  computed : {
+     selectedSpot (){
+      return this.markers.length >= 2;
     }
   },
   methods : {
@@ -62,8 +67,19 @@ export default {
         },
         content: 'select this?',
         open : true
-
       });
+    },
+    registration (){
+      let task = JSON.parse(sessionStorage.getItem('select_task'));
+      Object.assign(task,{
+        todoLocation : {
+          name : task.name,
+          latitude : this.markers[1].lat,
+          longitude : this.markers[1].lng
+        }
+      });
+      sessionStorage.setItem('select_task',JSON.stringify(task));
+      this.$route.router.go({ path:'/' });
     }
   },
   components : { Map, Marker, InfoWindow}
