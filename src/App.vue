@@ -97,7 +97,8 @@ export default {
       console.log(JSON.stringify(json,null,'\t'));
       this.taskDatas = json.map(x=>Object.assign(x,{
         title : x.todoText,
-        regDate:x.regDate.replace(/\//g,'-')
+        regDate:x.regDate.replace(/\//g,'-'),
+        select : false
       }));
     })
   },
