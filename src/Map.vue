@@ -23,11 +23,9 @@
 <script>
 import {load, Map, Marker, InfoWindow} from 'vue-google-maps'
 import config from '../config/config'
+load(config.gmap);
 
 export default {
-  created (){
-    load(config.gmap);
-  },
   ready (){
     navigator.geolocation.getCurrentPosition(pos=>{
       this.center = {lat: pos.coords.latitude, lng: pos.coords.longitude};
