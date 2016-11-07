@@ -30,18 +30,36 @@ import config from '../config/config'
 load(config.gmap);
 
 export default {
-  ready (){
-    navigator.geolocation.getCurrentPosition(pos=>{
-      this.center = {lat: pos.coords.latitude, lng: pos.coords.longitude};
-      this.markers.push({
-        position :{
-          lat: pos.coords.latitude,
-          lng: pos.coords.longitude,
-        },
-        content: 'now this position',
-        open : true
+  route : {
+    data ({ next }){
+      navigator.geolocation.getCurrentPosition(pos=>{
+        this.center = {lat: pos.coords.latitude, lng: pos.coords.longitude};
+        this.markers.$set(0,{
+          position :{
+            lat: pos.coords.latitude,
+            lng: pos.coords.longitude,
+          },
+          content: 'now this position',
+          open : true
+        });
+
+        this.taskData = JSON.parse(sessionStorage.getItem('select_task')) || {};
+
+        let locations = this.taskData.todoLocation || {};
+        if(locations.latitude && locations.longitude){
+          this.markers.$set(1,{
+            position :{
+              lat: +locations.latitude,
+              lng: +locations.longitude
+            },
+            content: 'select this?',
+            open : true
+          });
+          this.center = this.markers[1].position;
+        }
+        next();
       });
-    });
+    }
   },
   watch : {
     canter (){ console.log(this.center)}
@@ -50,7 +68,8 @@ export default {
     return {
       center: {lat: 10.0, lng: 10.0},
       zoom : 15,
-      markers: []
+      markers: [],
+      taskData : {}
     }
   },
   computed : {
@@ -62,8 +81,8 @@ export default {
     mapClick (mouseArgs){
       this.markers.$set( 1,{
         position :{
-          lat: mouseArgs.latLng.lat(),
-          lng: mouseArgs.latLng.lng(),
+          lat: mouseargs.latlng.lat(),
+          lng: mouseargs.latlng.lng(),
         },
         content: 'select this?',
         open : true
