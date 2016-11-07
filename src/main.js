@@ -10,7 +10,7 @@ Vue.use(VueRouter);
 Vue.use(VueResource);
 
 let router = new VueRouter({
-  hashboang: false,
+  hashbang: false,
   history: true
 });
 
@@ -18,7 +18,8 @@ router.map({
   '/': {
       component: App
   },
-  '/Map': {
+  'Map/:task_id': {
+      name : 'Map',
       component: Map
   }
 });

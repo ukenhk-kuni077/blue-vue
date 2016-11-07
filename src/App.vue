@@ -24,7 +24,6 @@
       <modal :is-opened.sync="openedDelete">
         <div class="modal-content">
           <h4>delete</h4>
-          <h4>delete</h4>
           <p v-for="title in selectTiles" track-by="$index">{{ title }}</p>
           <div class="modal-footer">
             <div class="btn btn-flat" @click="closeDelete">cancel</div>
@@ -97,7 +96,8 @@ export default {
       console.log(JSON.stringify(json,null,'\t'));
       this.taskDatas = json.map(x=>Object.assign(x,{
         title : x.todoText,
-        regDate:x.regDate.replace(/\//g,'-')
+        regDate:x.regDate.replace(/\//g,'-'),
+        select : false
       }));
     })
   },
