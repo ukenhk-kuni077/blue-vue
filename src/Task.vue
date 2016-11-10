@@ -6,7 +6,7 @@
           <input type="checkbox" value="" v-model.sync="task.select"></input>
           <label></label>
         </span>
-        {{ task.title }}
+        {{ task.todoText }}
       </h5>
       <p>{{ task.body }}</p>
       <p>
@@ -14,7 +14,7 @@
         <input-field type="date" :value.sync="task.regDate"></input-field>
 
         <label>location : </label>
-        <select :value.sync="task.location" class="browser-default">
+        <select :value.sync="task.todoLocation.name" class="browser-default">
           <option v-for="location in locations" :value="location.value" v-text="location.value"></option>
         </select>
 

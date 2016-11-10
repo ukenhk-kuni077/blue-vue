@@ -12,7 +12,7 @@
       <modal :is-opened.sync="openedSuccess">
         <div class="modal-content">
           <h4>success</h4>
-          <p v-for="title in selectTiles" track-by="$index">{{ title }}</p>
+          <p v-for="title in selectTiles" track-by="$index">{{ todoText }}</p>
           <div class="modal-footer">
             <div class="btn btn-flat" @click="closeSuccess">cancel</div>
             <div class="btn btn-flat" @click="deleteTasks">ok</div>
@@ -25,7 +25,7 @@
         <div class="modal-content">
           <h4>delete</h4>
           <h4>delete</h4>
-          <p v-for="title in selectTiles" track-by="$index">{{ title }}</p>
+          <p v-for="title in selectTiles" track-by="$index">{{ todoText }}</p>
           <div class="modal-footer">
             <div class="btn btn-flat" @click="closeDelete">cancel</div>
             <div class="btn btn-flat" @click="deleteTasks">ok</div>
@@ -77,8 +77,8 @@ export default {
       openedSuccess : false,
       openedDelete : false,
       taskDatas : [
-        {title:'task1', body:"body1", select:false, category:"shopping", location:"スーパー"},
-        {title:'task2', body:"body2", select:false, category:"shopping", location:"駅"}
+        {todoText:'task1', body:"body1", select:false, category:"shopping", todoLocation:{name:"スーパー"}},
+        {todoText:'task2', body:"body2", select:false, category:"shopping", todoLocation:{name:"駅"}}
       ],
       taskTitle : '',
       taskBody : ''
@@ -86,7 +86,7 @@ export default {
   },
   computed : {
     selectTiles (){
-      return this.taskDatas.filter(x=>x.select).map(x=>x.title);
+      return this.taskDatas.filter(x=>x.select).map(x=>x.todoText);
     }
   },
   created () {
@@ -95,13 +95,11 @@ export default {
     .then(response=>response.json())
     .then(json=>{
       console.log(JSON.stringify(json,null,'\t'));
-      this.taskDatas = json.map(x=>Object.assign(x,{
-        title : x.todoText,
-        regDate:x.regDate.replace(/\//g,'-')
-      }));
+      this.taskDatas = json;
     })
   },
   ready (){
+
       this.taskDatas = JSON.parse(window.localStorage.getItem('_taskDatas')) || this.taskDatas;
       this.speech = new webkitSpeechRecognition();
       this.speech.lang = "ja";
@@ -112,7 +110,7 @@ export default {
   methods : {
     addTask (){
       this.taskDatas.push({
-        title:this.taskTitle,
+        todoText:this.taskTitle,
         body:this.taskBody,
         select:false
       });
