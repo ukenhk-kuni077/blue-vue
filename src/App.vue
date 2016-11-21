@@ -24,7 +24,6 @@
       <modal :is-opened.sync="openedDelete">
         <div class="modal-content">
           <h4>delete</h4>
-          <h4>delete</h4>
           <p v-for="title in selectTiles" track-by="$index">{{ todoText }}</p>
           <div class="modal-footer">
             <div class="btn btn-flat" @click="closeDelete">cancel</div>
@@ -39,14 +38,14 @@
       <modal v-bind:is-opened.sync="opened">
         <div class="modal-content">
           <div class="row">
-            <div class="input-field">
-              <input type="text" v-model="taskTitle">
-              <label>task title</label>
-            </div>
-            <div class="input-field">
-              <input type="text" v-model="taskBody">
-              <label>Detailed information</label>
-            </div>
+            <input-field
+              class="s12"
+              label="task title"
+              :value.sync="taskTitle"></input-field>
+            <input-field
+              class="s12"
+              label="Detailed information"
+              :value.sync="taskBody"></input-field>
           </div>
           <div class="modal-footer">
             <div class="btn btn-flat" @click="close">cancel</div>
@@ -95,11 +94,12 @@ export default {
     .then(response=>response.json())
     .then(json=>{
       console.log(JSON.stringify(json,null,'\t'));
-      this.taskDatas = json;
+      this.taskDatas = json.map(x=>Object.assign(x,{
+        select : false
+      }));
     })
   },
   ready (){
-
       this.taskDatas = JSON.parse(window.localStorage.getItem('_taskDatas')) || this.taskDatas;
       this.speech = new webkitSpeechRecognition();
       this.speech.lang = "ja";
@@ -145,7 +145,8 @@ export default {
   },
   components:{
     Task,
-    'modal' : require('vue-materialize/modal')
+    'modal' : require('vue-materialize/modal'),
+    'input-field' : require('vue-materialize/input-field')
   }
 
 }
