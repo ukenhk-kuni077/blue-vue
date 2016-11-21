@@ -30,68 +30,33 @@ export default {
   route : {
     data ({ next }){
       navigator.geolocation.getCurrentPosition(pos=>{
-        this.center = {lat: pos.coords.latitude, lng: pos.coords.longitude};
-        this.markers.$set(0,{
-          position :{
-            lat: pos.coords.latitude,
-            lng: pos.coords.longitude,
-          },
-          content: 'now this position',
-          open : true
-        });
+        this.mapCenter.lat = pos.coords.latitude;
+        this.mapCenter.lng = pos.coords.longitude;
 
         this.taskData = JSON.parse(sessionStorage.getItem('select_task')) || {};
 
         let locations = this.taskData.todoLocation || {};
-        if(locations.latitude && locations.longitude){
-          this.markers.$set(1,{
-            position :{
-              lat: +locations.latitude,
-              lng: +locations.longitude
-            },
-            content: 'select this?',
-            open : true
-          });
-          this.center = this.markers[1].position;
-        }
+
         next();
       });
     }
   },
-  watch : {
-    canter (){ console.log(this.center)}
-  },
   data () {
     return {
-      center: {lat: 10.0, lng: 10.0},
+      mapCenter : {},
       zoom : 15,
       markers: [],
       taskData : {}
     }
   },
-  computed : {
-     selectedSpot (){
-      return this.markers.length >= 2;
-    }
-  },
   methods : {
-    mapClick (mouseArgs){
-      this.markers.$set( 1,{
-        position :{
-          lat: mouseargs.latlng.lat(),
-          lng: mouseargs.latlng.lng(),
-        },
-        content: 'select this?',
-        open : true
-      });
-    },
     registration (){
       let task = JSON.parse(sessionStorage.getItem('select_task'));
       Object.assign(task,{
         todoLocation : {
           name : task.name,
-          latitude : this.markers[1].lat,
-          longitude : this.markers[1].lng
+          latitude : this.mapCenter.lat,
+          longitude : this.mapCenter.lng
         }
       });
       sessionStorage.setItem('select_task',JSON.stringify(task));
