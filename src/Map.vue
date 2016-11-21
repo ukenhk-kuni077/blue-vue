@@ -15,7 +15,7 @@
       </marker>
     </map>
     <div class="row"></div>
-    <div class="row" v-show='selectedSpot'>
+    <div class="row">
       <a class="col offset-s4 s4 waves-effect waves-light btn" @click="registration">Registration</a>
     </div>
   </div>
