@@ -12,9 +12,6 @@
       <marker 
         v-for="m in markers"
         :position.sync="m.position">
-        <info-window
-          :opened.sync="m.open"
-          :content="m.content"></info-window>
       </marker>
     </map>
     <div class="row"></div>
