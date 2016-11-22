@@ -10,6 +10,7 @@
       :zoom.sync="zoom">
       <marker :position.sync="mapCenter">
       </marker>
+      <circle :center.sync="mapCenter" :radius.sync="100" :options="{editable: true}"></circle>
     </map>
     <div class="row"></div>
     <div class="row">
@@ -19,7 +20,7 @@
 </template>
 
 <script>
-import {load, Map, Marker, InfoWindow} from 'vue-google-maps'
+import {load, Map, Marker, InfoWindow, Circle} from 'vue-google-maps'
 import config from '../config/config'
 load(config.gmap);
 
@@ -60,7 +61,7 @@ export default {
       this.$route.router.go({ path:'/' });
     }
   },
-  components : { Map, Marker, InfoWindow}
+  components : { Map, Marker, InfoWindow, Circle }
 }
 </script>
 
