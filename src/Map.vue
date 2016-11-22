@@ -6,12 +6,9 @@
   </nav>
   <div class="container">
     <map
-      :center.sync="center"
-      :zoom.sync="zoom"
-      @g-click="mapClick">
-      <marker 
-        v-for="m in markers"
-        :position.sync="m.position">
+      :center.sync="mapCenter"
+      :zoom.sync="zoom">
+      <marker :position.sync="mapCenter">
       </marker>
     </map>
     <div class="row"></div>
