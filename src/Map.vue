@@ -41,7 +41,7 @@ export default {
   },
   data () {
     return {
-      mapCenter : {},
+      mapCenter : { lat: 35.698487083032546, lng: 139.77340467619624 },
       zoom : 15,
       markers: [],
       taskData : {}
