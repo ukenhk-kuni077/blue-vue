@@ -12,7 +12,7 @@
       <modal :is-opened.sync="openedSuccess">
         <div class="modal-content">
           <h4>success</h4>
-          <p v-for="title in selectTiles" track-by="$index">{{ title }}</p>
+          <p v-for="title in selectTiles" track-by="$index">{{ todoText }}</p>
           <div class="modal-footer">
             <div class="btn btn-flat" @click="closeSuccess">cancel</div>
             <div class="btn btn-flat" @click="deleteTasks">ok</div>
@@ -24,8 +24,7 @@
       <modal :is-opened.sync="openedDelete">
         <div class="modal-content">
           <h4>delete</h4>
-          <h4>delete</h4>
-          <p v-for="title in selectTiles" track-by="$index">{{ title }}</p>
+          <p v-for="title in selectTiles" track-by="$index">{{ todoText }}</p>
           <div class="modal-footer">
             <div class="btn btn-flat" @click="closeDelete">cancel</div>
             <div class="btn btn-flat" @click="deleteTasks">ok</div>
@@ -39,14 +38,14 @@
       <modal v-bind:is-opened.sync="opened">
         <div class="modal-content">
           <div class="row">
-            <div class="input-field">
-              <input type="text" v-model="taskTitle">
-              <label>task title</label>
-            </div>
-            <div class="input-field">
-              <input type="text" v-model="taskBody">
-              <label>Detailed information</label>
-            </div>
+            <input-field
+              class="s12"
+              label="task title"
+              :value.sync="taskTitle"></input-field>
+            <input-field
+              class="s12"
+              label="Detailed information"
+              :value.sync="taskBody"></input-field>
           </div>
           <div class="modal-footer">
             <div class="btn btn-flat" @click="close">cancel</div>
@@ -77,8 +76,8 @@ export default {
       openedSuccess : false,
       openedDelete : false,
       taskDatas : [
-        {title:'task1', body:"body1", select:false, category:"shopping", location:"スーパー"},
-        {title:'task2', body:"body2", select:false, category:"shopping", location:"駅"}
+        {todoText:'task1', body:"body1", select:false, category:"shopping", todoLocation:{name:"スーパー"}},
+        {todoText:'task2', body:"body2", select:false, category:"shopping", todoLocation:{name:"駅"}}
       ],
       taskTitle : '',
       taskBody : ''
@@ -86,7 +85,7 @@ export default {
   },
   computed : {
     selectTiles (){
-      return this.taskDatas.filter(x=>x.select).map(x=>x.title);
+      return this.taskDatas.filter(x=>x.select).map(x=>x.todoText);
     }
   },
   created () {
@@ -96,8 +95,7 @@ export default {
     .then(json=>{
       console.log(JSON.stringify(json,null,'\t'));
       this.taskDatas = json.map(x=>Object.assign(x,{
-        title : x.todoText,
-        regDate:x.regDate.replace(/\//g,'-')
+        select : false
       }));
     })
   },
@@ -112,7 +110,7 @@ export default {
   methods : {
     addTask (){
       this.taskDatas.push({
-        title:this.taskTitle,
+        todoText:this.taskTitle,
         body:this.taskBody,
         select:false
       });
@@ -147,7 +145,8 @@ export default {
   },
   components:{
     Task,
-    'modal' : require('vue-materialize/modal')
+    'modal' : require('vue-materialize/modal'),
+    'input-field' : require('vue-materialize/input-field')
   }
 
 }
