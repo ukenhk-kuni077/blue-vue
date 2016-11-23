@@ -68,7 +68,7 @@ export default {
 <style>
 map {
   width:100%;
-  height: 600px;
+  height: 75vh;
   display: block;
 }
 </style>
