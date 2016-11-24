@@ -10,15 +10,17 @@ Vue.use(VueRouter);
 Vue.use(VueResource);
 
 let router = new VueRouter({
-  hashboang: false,
-  history: true
+  hashbang: false,
+  history: true,
+  root : '/todo'
 });
 
 router.map({
   '/': {
       component: App
   },
-  '/Map': {
+  'Map/:task_id': {
+      name : 'Map',
       component: Map
   }
 });
